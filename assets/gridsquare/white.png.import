@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bk8ougydfae5x"
-path="res://.godot/imported/2.png-d8cd44643e8665f8f87a5af74fdc5ffd.ctex"
+uid="uid://bhachxfubocth"
+path="res://.godot/imported/white.png-b15515e79c8bce51f307258835e81367.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/chessgrid/2.png"
-dest_files=["res://.godot/imported/2.png-d8cd44643e8665f8f87a5af74fdc5ffd.ctex"]
+source_file="res://assets/gridsquare/white.png"
+dest_files=["res://.godot/imported/white.png-b15515e79c8bce51f307258835e81367.ctex"]
 
 [params]
 

@@ -1,8 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://c05bup0hjw8md"]
 
-[ext_resource type="Script" path="res://script/chess_board.gd" id="1_276wh"]
-
-[sub_resource type="GDScript" id="GDScript_g3ybf"]
+[ext_resource type="Texture2D" uid="uid://7k60up3oxxdf" path="res://assets/White/Rook.png" id="2_1f762"]
+[ext_resource type="Script" path="res://script/ChessPiece.gd" id="2_4ocro"]
 
 [sub_resource type="GDScript" id="GDScript_lf2qe"]
 script/source = "extends Area2D
@@ -19,10 +18,11 @@ size = Vector2(142, 101.584)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyred"]
 
 [node name="ChessBoard" type="Area2D"]
-script = ExtResource("1_276wh")
+position = Vector2(527, 246)
 
-[node name="ChessPiece" type="Node" parent="."]
-script = SubResource("GDScript_g3ybf")
+[node name="ChessPiece" type="Area2D" parent="."]
+position = Vector2(-192, -128)
+script = ExtResource("2_4ocro")
 
 [node name="a1" type="Area2D" parent="ChessPiece"]
 position = Vector2(26, 349)
@@ -30,703 +30,774 @@ scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a1"]
-position = Vector2(-23, 0)
+position = Vector2(-15, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a1"]
+position = Vector2(-14, 0)
+
+[node name="ChessPiece" type="Sprite2D" parent="ChessPiece/a1"]
+z_index = 1
+position = Vector2(-18, 0)
+texture = ExtResource("2_1f762")
 
 [node name="b1" type="Area2D" parent="ChessPiece"]
-position = Vector2(102, 348)
+position = Vector2(100, 349)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b1"]
-position = Vector2(-23, 0)
+position = Vector2(-19, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b1"]
+position = Vector2(-18, -1.88123)
 
 [node name="c1" type="Area2D" parent="ChessPiece"]
-position = Vector2(178, 348)
+position = Vector2(174, 349)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c1"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c1"]
+position = Vector2(-22, 0)
 
 [node name="d1" type="Area2D" parent="ChessPiece"]
-position = Vector2(255, 348)
+position = Vector2(248, 349)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d1"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d1"]
+position = Vector2(-28, -1.88123)
 
 [node name="e1" type="Area2D" parent="ChessPiece"]
-position = Vector2(332, 348)
+position = Vector2(322, 349)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e1"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e1"]
+position = Vector2(-32, 0)
 
 [node name="f1" type="Area2D" parent="ChessPiece"]
-position = Vector2(411, 349)
+position = Vector2(396, 349)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f1"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f1"]
+position = Vector2(-36, 0)
 
 [node name="g1" type="Area2D" parent="ChessPiece"]
-position = Vector2(491, 349)
+position = Vector2(470, 349)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g1"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g1"]
+position = Vector2(-40, 3.76233)
 
 [node name="h1" type="Area2D" parent="ChessPiece"]
-position = Vector2(571, 349)
+position = Vector2(544, 349)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h1"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h1"]
+position = Vector2(-44, 0)
 
 [node name="a2" type="Area2D" parent="ChessPiece"]
-position = Vector2(26, 289)
+position = Vector2(26, 292)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a2"]
-position = Vector2(-23, 0)
+position = Vector2(-15, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a2"]
+position = Vector2(-14, 0)
 
 [node name="b2" type="Area2D" parent="ChessPiece"]
-position = Vector2(103, 288)
+position = Vector2(100, 292)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b2"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b2"]
+position = Vector2(-18, 0)
 
 [node name="c2" type="Area2D" parent="ChessPiece"]
-position = Vector2(179, 288)
+position = Vector2(174, 292)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c2"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c2"]
+position = Vector2(-22, 0)
 
 [node name="d2" type="Area2D" parent="ChessPiece"]
-position = Vector2(255, 287)
+position = Vector2(248, 292)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d2"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d2"]
+position = Vector2(-28, 0)
 
 [node name="e2" type="Area2D" parent="ChessPiece"]
-position = Vector2(331, 287)
+position = Vector2(322, 292)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e2"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e2"]
+position = Vector2(-32, 0)
 
 [node name="f2" type="Area2D" parent="ChessPiece"]
-position = Vector2(411, 286)
+position = Vector2(396, 292)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f2"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f2"]
+position = Vector2(-36, 0)
 
 [node name="g2" type="Area2D" parent="ChessPiece"]
-position = Vector2(491, 285)
+position = Vector2(470, 292)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g2"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g2"]
+position = Vector2(-40, 0)
 
 [node name="h2" type="Area2D" parent="ChessPiece"]
-position = Vector2(570, 285)
+position = Vector2(544, 292)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h2"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h2"]
+position = Vector2(-44, 0)
 
 [node name="a3" type="Area2D" parent="ChessPiece"]
-position = Vector2(28, 229)
+position = Vector2(26, 235)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a3"]
-position = Vector2(-23, 0)
+position = Vector2(-15, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a3"]
+position = Vector2(-14, 0)
 
 [node name="b3" type="Area2D" parent="ChessPiece"]
-position = Vector2(105, 228)
+position = Vector2(100, 235)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b3"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b3"]
+position = Vector2(-18, 0)
 
 [node name="c3" type="Area2D" parent="ChessPiece"]
-position = Vector2(181, 227)
+position = Vector2(174, 235)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c3"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c3"]
+position = Vector2(-22, 0)
 
 [node name="d3" type="Area2D" parent="ChessPiece"]
-position = Vector2(258, 227)
+position = Vector2(248, 235)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d3"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d3"]
+position = Vector2(-28, 0)
 
 [node name="e3" type="Area2D" parent="ChessPiece"]
-position = Vector2(335, 228)
+position = Vector2(322, 235)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e3"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e3"]
+position = Vector2(-32, 0)
 
 [node name="f3" type="Area2D" parent="ChessPiece"]
-position = Vector2(412, 225)
+position = Vector2(396, 235)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f3"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f3"]
+position = Vector2(-36, 0)
 
 [node name="g3" type="Area2D" parent="ChessPiece"]
-position = Vector2(491, 225)
+position = Vector2(470, 235)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g3"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g3"]
+position = Vector2(-40, 0)
 
 [node name="h3" type="Area2D" parent="ChessPiece"]
-position = Vector2(570, 225)
+position = Vector2(544, 235)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h3"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h3"]
+position = Vector2(-44, 0)
 
 [node name="a4" type="Area2D" parent="ChessPiece"]
-position = Vector2(28, 167)
+position = Vector2(26, 178)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a4"]
-position = Vector2(-23, 0)
+position = Vector2(-15, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a4"]
+position = Vector2(-14, 0)
 
 [node name="b4" type="Area2D" parent="ChessPiece"]
-position = Vector2(106, 168)
+position = Vector2(100, 178)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b4"]
-position = Vector2(-23, 0)
+position = Vector2(-15, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b4"]
+position = Vector2(-18, 0)
 
 [node name="c4" type="Area2D" parent="ChessPiece"]
-position = Vector2(184, 167)
+position = Vector2(174, 178)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c4"]
-position = Vector2(-23, 0)
+position = Vector2(-15, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c4"]
+position = Vector2(-22, 0)
 
 [node name="d4" type="Area2D" parent="ChessPiece"]
-position = Vector2(263, 167)
+position = Vector2(249, 178)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d4"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d4"]
+position = Vector2(-30, 0)
 
 [node name="e4" type="Area2D" parent="ChessPiece"]
-position = Vector2(339, 167)
+position = Vector2(322, 178)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e4"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e4"]
+position = Vector2(-32, 0)
 
 [node name="f4" type="Area2D" parent="ChessPiece"]
-position = Vector2(418, 166)
+position = Vector2(396, 178)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f4"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f4"]
+position = Vector2(-36, 7.52475)
 
 [node name="g4" type="Area2D" parent="ChessPiece"]
-position = Vector2(493, 165)
+position = Vector2(470, 178)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g4"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g4"]
+position = Vector2(-40, 0)
 
 [node name="h4" type="Area2D" parent="ChessPiece"]
-position = Vector2(569, 164)
+position = Vector2(544, 178)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h4"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h4"]
+position = Vector2(-44, 0)
 
 [node name="a5" type="Area2D" parent="ChessPiece"]
-position = Vector2(27, 106)
+position = Vector2(27, 121)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a5"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a5"]
+position = Vector2(-16, 0)
 
 [node name="b5" type="Area2D" parent="ChessPiece"]
-position = Vector2(106, 109)
+position = Vector2(101, 121)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b5"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b5"]
+position = Vector2(-20, 0)
 
 [node name="c5" type="Area2D" parent="ChessPiece"]
-position = Vector2(185, 108)
+position = Vector2(175, 121)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c5"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c5"]
+position = Vector2(-24, 0)
 
 [node name="d5" type="Area2D" parent="ChessPiece"]
-position = Vector2(265, 105)
+position = Vector2(249, 121)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d5"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d5"]
+position = Vector2(-30, 0)
 
 [node name="e5" type="Area2D" parent="ChessPiece"]
-position = Vector2(343, 106)
+position = Vector2(323, 121)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e5"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e5"]
+position = Vector2(-34, 0)
 
 [node name="f5" type="Area2D" parent="ChessPiece"]
-position = Vector2(419, 107)
+position = Vector2(396, 121)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f5"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f5"]
+position = Vector2(-36, 0)
 
 [node name="g5" type="Area2D" parent="ChessPiece"]
-position = Vector2(495, 106)
+position = Vector2(470, 121)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g5"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g5"]
+position = Vector2(-40, 0)
 
 [node name="h5" type="Area2D" parent="ChessPiece"]
-position = Vector2(573, 105)
+position = Vector2(544, 121)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h5"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h5"]
+position = Vector2(-44, 0)
 
 [node name="a6" type="Area2D" parent="ChessPiece"]
-position = Vector2(29, 46)
+position = Vector2(27, 64)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a6"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a6"]
+position = Vector2(-16, 0)
 
 [node name="b6" type="Area2D" parent="ChessPiece"]
-position = Vector2(110, 46)
+position = Vector2(101, 64)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b6"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b6"]
+position = Vector2(-20, 0)
 
 [node name="c6" type="Area2D" parent="ChessPiece"]
-position = Vector2(189, 47)
+position = Vector2(175, 64)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c6"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c6"]
+position = Vector2(-24, 0)
 
 [node name="d6" type="Area2D" parent="ChessPiece"]
-position = Vector2(265, 46)
+position = Vector2(249, 64)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d6"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d6"]
+position = Vector2(-30, 0)
 
 [node name="e6" type="Area2D" parent="ChessPiece"]
-position = Vector2(343, 45)
+position = Vector2(323, 64)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e6"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e6"]
+position = Vector2(-34, 3.76238)
 
 [node name="f6" type="Area2D" parent="ChessPiece"]
-position = Vector2(419, 48)
+position = Vector2(396, 64)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f6"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f6"]
+position = Vector2(-36, 0)
 
 [node name="g6" type="Area2D" parent="ChessPiece"]
-position = Vector2(497, 47)
+position = Vector2(470, 64)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g6"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g6"]
+position = Vector2(-40, 0)
 
 [node name="h6" type="Area2D" parent="ChessPiece"]
-position = Vector2(573, 46)
+position = Vector2(544, 64)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h6"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h6"]
+position = Vector2(-44, 0)
 
 [node name="a7" type="Area2D" parent="ChessPiece"]
-position = Vector2(29, -16)
+position = Vector2(27, 7)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a7"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a7"]
+position = Vector2(-16, 0)
 
 [node name="b7" type="Area2D" parent="ChessPiece"]
-position = Vector2(110, -16)
+position = Vector2(101, 7)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b7"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b7"]
+position = Vector2(-20, 0)
 
 [node name="c7" type="Area2D" parent="ChessPiece"]
-position = Vector2(189, -13)
+position = Vector2(175, 7)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c7"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c7"]
+position = Vector2(-24, 0)
 
 [node name="d7" type="Area2D" parent="ChessPiece"]
-position = Vector2(265, -14)
+position = Vector2(249, 7)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d7"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d7"]
+position = Vector2(-30, 0)
 
 [node name="e7" type="Area2D" parent="ChessPiece"]
-position = Vector2(344, -14)
+position = Vector2(323, 7)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e7"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e7"]
+position = Vector2(-34, 0)
 
 [node name="f7" type="Area2D" parent="ChessPiece"]
-position = Vector2(423, -15)
+position = Vector2(396, 7)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f7"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f7"]
+position = Vector2(-36, 0)
 
 [node name="g7" type="Area2D" parent="ChessPiece"]
-position = Vector2(501, -14)
+position = Vector2(470, 7)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g7"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g7"]
+position = Vector2(-40, 0)
 
 [node name="h7" type="Area2D" parent="ChessPiece"]
-position = Vector2(576, -14)
+position = Vector2(544, 7)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h7"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h7"]
+position = Vector2(-44, 0)
 
 [node name="a8" type="Area2D" parent="ChessPiece"]
-position = Vector2(30, -76)
+position = Vector2(27, -50)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a8"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a8"]
+position = Vector2(-16, 0)
 
 [node name="b8" type="Area2D" parent="ChessPiece"]
-position = Vector2(111, -76)
+position = Vector2(101, -50)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b8"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b8"]
+position = Vector2(-20, 1.88119)
 
 [node name="c8" type="Area2D" parent="ChessPiece"]
-position = Vector2(189, -77)
+position = Vector2(175, -50)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c8"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c8"]
+position = Vector2(-24, 0)
 
 [node name="d8" type="Area2D" parent="ChessPiece"]
-position = Vector2(268, -77)
+position = Vector2(248, -50)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d8"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d8"]
+position = Vector2(-28, 0)
 
 [node name="e8" type="Area2D" parent="ChessPiece"]
-position = Vector2(344, -76)
+position = Vector2(323, -50)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e8"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e8"]
+position = Vector2(-34, 0)
 
 [node name="f8" type="Area2D" parent="ChessPiece"]
-position = Vector2(420, -77)
+position = Vector2(396, -50)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f8"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f8"]
+position = Vector2(-36, 0)
 
 [node name="g8" type="Area2D" parent="ChessPiece"]
-position = Vector2(499, -77)
+position = Vector2(470, -50)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g8"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g8"]
+position = Vector2(-40, 0)
 
 [node name="h8" type="Area2D" parent="ChessPiece"]
-position = Vector2(578, -77)
+position = Vector2(544, -50)
 scale = Vector2(0.5, 0.531579)
 script = SubResource("GDScript_lf2qe")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h8"]
-position = Vector2(-23, 0)
+position = Vector2(-17, -1.88116)
 shape = SubResource("RectangleShape2D_5gtj7")
 
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h8"]
+position = Vector2(-44, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jyred")
