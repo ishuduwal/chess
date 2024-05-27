@@ -1,0 +1,434 @@
+[gd_scene load_steps=11 format=3 uid="uid://c05bup0hjw8md"]
+
+[ext_resource type="PackedScene" uid="uid://iwbf0wgopnn1" path="res://scene/square_box.tscn" id="1_31yuy"]
+[ext_resource type="Script" path="res://script/selectpiece.gd" id="2_f7hrm"]
+[ext_resource type="Texture2D" uid="uid://c3uy1r0wdoack" path="res://assets/White/Pawn.png" id="2_k4nk6"]
+[ext_resource type="Texture2D" uid="uid://c5picgxhmq8pn" path="res://assets/White/Knight.png" id="4_m14ff"]
+[ext_resource type="Texture2D" uid="uid://b3m8qii6uq11r" path="res://assets/Black/Pawn.png" id="6_24kh0"]
+[ext_resource type="Texture2D" uid="uid://n70iwhd7axsp" path="res://assets/Black/Rook.png" id="7_cnfex"]
+[ext_resource type="Texture2D" uid="uid://bvb38nw8bhbdb" path="res://assets/Black/Bishop.png" id="8_gxfcx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5gtj7"]
+size = Vector2(100, 101.584)
+
+[sub_resource type="GDScript" id="GDScript_m7vkp"]
+script/source = "extends Sprite2D
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if Input.is_action_just_pressed(\"ui_left\"):
+		move_knight(Vector2(-1, 0))
+	elif Input.is_action_just_pressed(\"ui_right\"):
+		move_knight(Vector2(1, 0))
+	elif Input.is_action_just_pressed(\"ui_up\"):
+		move_knight(Vector2(0, -1))
+	elif Input.is_action_just_pressed(\"ui_down\"):
+		move_knight(Vector2(0, 1))
+	elif Input.is_action_just_pressed(\"\"):
+		move_knight_in_L()
+
+func move_knight(direction: Vector2):
+	position += direction * 50  # Move by 50 pixels in the given direction
+
+func move_knight_in_L():
+	var possible_moves = [
+		Vector2(1, 2),
+		Vector2(2, 1),
+		Vector2(-1, 2),
+		Vector2(-2, 1),
+		Vector2(1, -2),
+		Vector2(2, -1),
+		Vector2(-1, -2),
+		Vector2(-2, -1)
+	]
+
+	# Check if the move is within the screen bounds
+	for move in possible_moves:
+		var new_position = position + move * 50
+		if new_position.x >= 0 and new_position.x < get_viewport_rect().size.x and \\
+			new_position.y >= 0 and new_position.y < get_viewport_rect().size.y:
+			position = new_position
+			break
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyred"]
+
+[node name="ChessBoard" type="Area2D"]
+
+[node name="chessRow8" type="HBoxContainer" parent="."]
+offset_right = 1152.0
+offset_bottom = 50.0
+
+[node name="a8" parent="chessRow8" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="b8" parent="chessRow8" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="c8" parent="chessRow8" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="d8" parent="chessRow8" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="e8" parent="chessRow8" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="f8" parent="chessRow8" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="g8" parent="chessRow8" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="h8" parent="chessRow8" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="chessRow7" type="HBoxContainer" parent="."]
+offset_top = 54.0
+offset_right = 1152.0
+offset_bottom = 104.0
+
+[node name="a7" parent="chessRow7" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="b7" parent="chessRow7" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="c7" parent="chessRow7" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="d7" parent="chessRow7" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="e7" parent="chessRow7" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="f7" parent="chessRow7" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="g7" parent="chessRow7" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="h7" parent="chessRow7" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="chessRow6" type="HBoxContainer" parent="."]
+offset_top = 108.0
+offset_right = 1152.0
+offset_bottom = 158.0
+
+[node name="a6" parent="chessRow6" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="b6" parent="chessRow6" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="c6" parent="chessRow6" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="d6" parent="chessRow6" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="e6" parent="chessRow6" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="f6" parent="chessRow6" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="g6" parent="chessRow6" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="h6" parent="chessRow6" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="chessRow5" type="HBoxContainer" parent="."]
+offset_top = 162.0
+offset_right = 1152.0
+offset_bottom = 212.0
+
+[node name="a5" parent="chessRow5" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="b5" parent="chessRow5" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="c5" parent="chessRow5" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="d5" parent="chessRow5" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="e5" parent="chessRow5" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="f5" parent="chessRow5" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="g5" parent="chessRow5" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="h5" parent="chessRow5" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="chessRow4" type="HBoxContainer" parent="."]
+offset_top = 216.0
+offset_right = 1152.0
+offset_bottom = 266.0
+
+[node name="a4" parent="chessRow4" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="b4" parent="chessRow4" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="c4" parent="chessRow4" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="d4" parent="chessRow4" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="e4" parent="chessRow4" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="f4" parent="chessRow4" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="g4" parent="chessRow4" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="h4" parent="chessRow4" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="chessRow3" type="HBoxContainer" parent="."]
+offset_top = 270.0
+offset_right = 1152.0
+offset_bottom = 320.0
+
+[node name="a3" parent="chessRow3" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="b3" parent="chessRow3" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="c3" parent="chessRow3" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="d3" parent="chessRow3" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="e3" parent="chessRow3" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="f3" parent="chessRow3" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="g3" parent="chessRow3" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="h3" parent="chessRow3" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="chessRow2" type="HBoxContainer" parent="."]
+offset_top = 324.0
+offset_right = 1152.0
+offset_bottom = 374.0
+
+[node name="a2" parent="chessRow2" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="b2" parent="chessRow2" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="c2" parent="chessRow2" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="d2" parent="chessRow2" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="e2" parent="chessRow2" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="f2" parent="chessRow2" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="g2" parent="chessRow2" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="h2" parent="chessRow2" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="chessRow1" type="HBoxContainer" parent="."]
+offset_top = 378.0
+offset_right = 1152.0
+offset_bottom = 428.0
+
+[node name="a1" parent="chessRow1" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="b1" parent="chessRow1" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="c1" parent="chessRow1" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="d1" parent="chessRow1" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="e1" parent="chessRow1" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="f1" parent="chessRow1" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="g1" parent="chessRow1" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(0.803922, 0.521569, 0.247059, 1)
+dark = true
+
+[node name="h1" parent="chessRow1" instance=ExtResource("1_31yuy")]
+layout_mode = 2
+color = Color(1, 0.854902, 0.72549, 1)
+
+[node name="ChessPiece" type="Node" parent="."]
+
+[node name="Area2D" type="Area2D" parent="ChessPiece"]
+z_index = 10
+position = Vector2(26, 349)
+scale = Vector2(0.5, 0.531579)
+script = ExtResource("2_f7hrm")
+
+[node name="Pawn" type="Sprite2D" parent="ChessPiece/Area2D"]
+texture = ExtResource("2_k4nk6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/Area2D"]
+position = Vector2(0, 1.88116)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Knight" type="Sprite2D" parent="."]
+position = Vector2(241, 242)
+scale = Vector2(0.501262, 0.526316)
+texture = ExtResource("4_m14ff")
+script = SubResource("GDScript_m7vkp")
+
+[node name="Pawn" type="Sprite2D" parent="."]
+position = Vector2(240.5, 352)
+scale = Vector2(0.535353, 0.594737)
+texture = ExtResource("2_k4nk6")
+
+[node name="Pawn2" type="Sprite2D" parent="."]
+position = Vector2(79, 79.875)
+scale = Vector2(0.530303, 0.528947)
+texture = ExtResource("6_24kh0")
+
+[node name="Rook" type="Sprite2D" parent="."]
+position = Vector2(399.5, 27.1875)
+scale = Vector2(0.39394, 0.488158)
+texture = ExtResource("7_cnfex")
+
+[node name="Bishop" type="Sprite2D" parent="."]
+position = Vector2(296.063, 26.5625)
+scale = Vector2(0.483586, 0.493421)
+texture = ExtResource("8_gxfcx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jyred")
+
+[connection signal="input_event" from="ChessPiece/Area2D" to="ChessPiece/Area2D" method="_on_input_event"]
+[connection signal="mouse_entered" from="ChessPiece/Area2D" to="ChessPiece/Area2D" method="_on_mouse_entered"]
