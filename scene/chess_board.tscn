@@ -1,434 +1,797 @@
-[gd_scene load_steps=11 format=3 uid="uid://c05bup0hjw8md"]
+[gd_scene load_steps=6 format=3 uid="uid://c05bup0hjw8md"]
 
-[ext_resource type="PackedScene" uid="uid://iwbf0wgopnn1" path="res://scene/square_box.tscn" id="1_31yuy"]
-[ext_resource type="Script" path="res://script/selectpiece.gd" id="2_f7hrm"]
-[ext_resource type="Texture2D" uid="uid://c3uy1r0wdoack" path="res://assets/White/Pawn.png" id="2_k4nk6"]
-[ext_resource type="Texture2D" uid="uid://c5picgxhmq8pn" path="res://assets/White/Knight.png" id="4_m14ff"]
-[ext_resource type="Texture2D" uid="uid://b3m8qii6uq11r" path="res://assets/Black/Pawn.png" id="6_24kh0"]
-[ext_resource type="Texture2D" uid="uid://n70iwhd7axsp" path="res://assets/Black/Rook.png" id="7_cnfex"]
-[ext_resource type="Texture2D" uid="uid://bvb38nw8bhbdb" path="res://assets/Black/Bishop.png" id="8_gxfcx"]
+[ext_resource type="Script" path="res://script/chess_board.gd" id="1_276wh"]
+
+[sub_resource type="GDScript" id="GDScript_g3ybf"]
+
+[sub_resource type="GDScript" id="GDScript_lf2qe"]
+script/source = "extends Area2D
+
+func _on_input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			print(\"clicked here\")
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5gtj7"]
-size = Vector2(100, 101.584)
-
-[sub_resource type="GDScript" id="GDScript_m7vkp"]
-script/source = "extends Sprite2D
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Input.is_action_just_pressed(\"ui_left\"):
-		move_knight(Vector2(-1, 0))
-	elif Input.is_action_just_pressed(\"ui_right\"):
-		move_knight(Vector2(1, 0))
-	elif Input.is_action_just_pressed(\"ui_up\"):
-		move_knight(Vector2(0, -1))
-	elif Input.is_action_just_pressed(\"ui_down\"):
-		move_knight(Vector2(0, 1))
-	elif Input.is_action_just_pressed(\"\"):
-		move_knight_in_L()
-
-func move_knight(direction: Vector2):
-	position += direction * 50  # Move by 50 pixels in the given direction
-
-func move_knight_in_L():
-	var possible_moves = [
-		Vector2(1, 2),
-		Vector2(2, 1),
-		Vector2(-1, 2),
-		Vector2(-2, 1),
-		Vector2(1, -2),
-		Vector2(2, -1),
-		Vector2(-1, -2),
-		Vector2(-2, -1)
-	]
-
-	# Check if the move is within the screen bounds
-	for move in possible_moves:
-		var new_position = position + move * 50
-		if new_position.x >= 0 and new_position.x < get_viewport_rect().size.x and \\
-			new_position.y >= 0 and new_position.y < get_viewport_rect().size.y:
-			position = new_position
-			break
-"
+size = Vector2(142, 101.584)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyred"]
 
 [node name="ChessBoard" type="Area2D"]
-
-[node name="chessRow8" type="HBoxContainer" parent="."]
-offset_right = 1152.0
-offset_bottom = 50.0
-
-[node name="a8" parent="chessRow8" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="b8" parent="chessRow8" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="c8" parent="chessRow8" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="d8" parent="chessRow8" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="e8" parent="chessRow8" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="f8" parent="chessRow8" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="g8" parent="chessRow8" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="h8" parent="chessRow8" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="chessRow7" type="HBoxContainer" parent="."]
-offset_top = 54.0
-offset_right = 1152.0
-offset_bottom = 104.0
-
-[node name="a7" parent="chessRow7" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="b7" parent="chessRow7" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="c7" parent="chessRow7" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="d7" parent="chessRow7" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="e7" parent="chessRow7" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="f7" parent="chessRow7" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="g7" parent="chessRow7" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="h7" parent="chessRow7" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="chessRow6" type="HBoxContainer" parent="."]
-offset_top = 108.0
-offset_right = 1152.0
-offset_bottom = 158.0
-
-[node name="a6" parent="chessRow6" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="b6" parent="chessRow6" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="c6" parent="chessRow6" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="d6" parent="chessRow6" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="e6" parent="chessRow6" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="f6" parent="chessRow6" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="g6" parent="chessRow6" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="h6" parent="chessRow6" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="chessRow5" type="HBoxContainer" parent="."]
-offset_top = 162.0
-offset_right = 1152.0
-offset_bottom = 212.0
-
-[node name="a5" parent="chessRow5" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="b5" parent="chessRow5" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="c5" parent="chessRow5" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="d5" parent="chessRow5" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="e5" parent="chessRow5" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="f5" parent="chessRow5" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="g5" parent="chessRow5" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="h5" parent="chessRow5" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="chessRow4" type="HBoxContainer" parent="."]
-offset_top = 216.0
-offset_right = 1152.0
-offset_bottom = 266.0
-
-[node name="a4" parent="chessRow4" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="b4" parent="chessRow4" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="c4" parent="chessRow4" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="d4" parent="chessRow4" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="e4" parent="chessRow4" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="f4" parent="chessRow4" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="g4" parent="chessRow4" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="h4" parent="chessRow4" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="chessRow3" type="HBoxContainer" parent="."]
-offset_top = 270.0
-offset_right = 1152.0
-offset_bottom = 320.0
-
-[node name="a3" parent="chessRow3" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="b3" parent="chessRow3" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="c3" parent="chessRow3" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="d3" parent="chessRow3" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="e3" parent="chessRow3" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="f3" parent="chessRow3" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="g3" parent="chessRow3" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="h3" parent="chessRow3" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="chessRow2" type="HBoxContainer" parent="."]
-offset_top = 324.0
-offset_right = 1152.0
-offset_bottom = 374.0
-
-[node name="a2" parent="chessRow2" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="b2" parent="chessRow2" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="c2" parent="chessRow2" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="d2" parent="chessRow2" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="e2" parent="chessRow2" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="f2" parent="chessRow2" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="g2" parent="chessRow2" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="h2" parent="chessRow2" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="chessRow1" type="HBoxContainer" parent="."]
-offset_top = 378.0
-offset_right = 1152.0
-offset_bottom = 428.0
-
-[node name="a1" parent="chessRow1" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="b1" parent="chessRow1" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="c1" parent="chessRow1" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="d1" parent="chessRow1" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="e1" parent="chessRow1" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="f1" parent="chessRow1" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
-
-[node name="g1" parent="chessRow1" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(0.803922, 0.521569, 0.247059, 1)
-dark = true
-
-[node name="h1" parent="chessRow1" instance=ExtResource("1_31yuy")]
-layout_mode = 2
-color = Color(1, 0.854902, 0.72549, 1)
+script = ExtResource("1_276wh")
 
 [node name="ChessPiece" type="Node" parent="."]
+script = SubResource("GDScript_g3ybf")
 
-[node name="Area2D" type="Area2D" parent="ChessPiece"]
-z_index = 10
+[node name="a1" type="Area2D" parent="ChessPiece"]
 position = Vector2(26, 349)
 scale = Vector2(0.5, 0.531579)
-script = ExtResource("2_f7hrm")
+script = SubResource("GDScript_lf2qe")
 
-[node name="Pawn" type="Sprite2D" parent="ChessPiece/Area2D"]
-texture = ExtResource("2_k4nk6")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/Area2D"]
-position = Vector2(0, 1.88116)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a1"]
+position = Vector2(-23, 0)
 shape = SubResource("RectangleShape2D_5gtj7")
 
-[node name="Knight" type="Sprite2D" parent="."]
-position = Vector2(241, 242)
-scale = Vector2(0.501262, 0.526316)
-texture = ExtResource("4_m14ff")
-script = SubResource("GDScript_m7vkp")
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a1"]
 
-[node name="Pawn" type="Sprite2D" parent="."]
-position = Vector2(240.5, 352)
-scale = Vector2(0.535353, 0.594737)
-texture = ExtResource("2_k4nk6")
+[node name="b1" type="Area2D" parent="ChessPiece"]
+position = Vector2(102, 348)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
 
-[node name="Pawn2" type="Sprite2D" parent="."]
-position = Vector2(79, 79.875)
-scale = Vector2(0.530303, 0.528947)
-texture = ExtResource("6_24kh0")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b1"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
 
-[node name="Rook" type="Sprite2D" parent="."]
-position = Vector2(399.5, 27.1875)
-scale = Vector2(0.39394, 0.488158)
-texture = ExtResource("7_cnfex")
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b1"]
 
-[node name="Bishop" type="Sprite2D" parent="."]
-position = Vector2(296.063, 26.5625)
-scale = Vector2(0.483586, 0.493421)
-texture = ExtResource("8_gxfcx")
+[node name="c1" type="Area2D" parent="ChessPiece"]
+position = Vector2(178, 348)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c1"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c1"]
+
+[node name="d1" type="Area2D" parent="ChessPiece"]
+position = Vector2(255, 348)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d1"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d1"]
+
+[node name="e1" type="Area2D" parent="ChessPiece"]
+position = Vector2(332, 348)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e1"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e1"]
+
+[node name="f1" type="Area2D" parent="ChessPiece"]
+position = Vector2(411, 349)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f1"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f1"]
+
+[node name="g1" type="Area2D" parent="ChessPiece"]
+position = Vector2(491, 349)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g1"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g1"]
+
+[node name="h1" type="Area2D" parent="ChessPiece"]
+position = Vector2(571, 349)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h1"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h1"]
+
+[node name="a2" type="Area2D" parent="ChessPiece"]
+position = Vector2(26, 289)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a2"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a2"]
+
+[node name="b2" type="Area2D" parent="ChessPiece"]
+position = Vector2(103, 288)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b2"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b2"]
+
+[node name="c2" type="Area2D" parent="ChessPiece"]
+position = Vector2(179, 288)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c2"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c2"]
+
+[node name="d2" type="Area2D" parent="ChessPiece"]
+position = Vector2(255, 287)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d2"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d2"]
+
+[node name="e2" type="Area2D" parent="ChessPiece"]
+position = Vector2(331, 287)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e2"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e2"]
+
+[node name="f2" type="Area2D" parent="ChessPiece"]
+position = Vector2(411, 286)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f2"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f2"]
+
+[node name="g2" type="Area2D" parent="ChessPiece"]
+position = Vector2(491, 285)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g2"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g2"]
+
+[node name="h2" type="Area2D" parent="ChessPiece"]
+position = Vector2(570, 285)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h2"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h2"]
+
+[node name="a3" type="Area2D" parent="ChessPiece"]
+position = Vector2(28, 229)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a3"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a3"]
+
+[node name="b3" type="Area2D" parent="ChessPiece"]
+position = Vector2(105, 228)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b3"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b3"]
+
+[node name="c3" type="Area2D" parent="ChessPiece"]
+position = Vector2(181, 227)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c3"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c3"]
+
+[node name="d3" type="Area2D" parent="ChessPiece"]
+position = Vector2(258, 227)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d3"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d3"]
+
+[node name="e3" type="Area2D" parent="ChessPiece"]
+position = Vector2(335, 228)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e3"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e3"]
+
+[node name="f3" type="Area2D" parent="ChessPiece"]
+position = Vector2(412, 225)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f3"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f3"]
+
+[node name="g3" type="Area2D" parent="ChessPiece"]
+position = Vector2(491, 225)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g3"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g3"]
+
+[node name="h3" type="Area2D" parent="ChessPiece"]
+position = Vector2(570, 225)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h3"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h3"]
+
+[node name="a4" type="Area2D" parent="ChessPiece"]
+position = Vector2(28, 167)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a4"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a4"]
+
+[node name="b4" type="Area2D" parent="ChessPiece"]
+position = Vector2(106, 168)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b4"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b4"]
+
+[node name="c4" type="Area2D" parent="ChessPiece"]
+position = Vector2(184, 167)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c4"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c4"]
+
+[node name="d4" type="Area2D" parent="ChessPiece"]
+position = Vector2(263, 167)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d4"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d4"]
+
+[node name="e4" type="Area2D" parent="ChessPiece"]
+position = Vector2(339, 167)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e4"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e4"]
+
+[node name="f4" type="Area2D" parent="ChessPiece"]
+position = Vector2(418, 166)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f4"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f4"]
+
+[node name="g4" type="Area2D" parent="ChessPiece"]
+position = Vector2(493, 165)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g4"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g4"]
+
+[node name="h4" type="Area2D" parent="ChessPiece"]
+position = Vector2(569, 164)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h4"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h4"]
+
+[node name="a5" type="Area2D" parent="ChessPiece"]
+position = Vector2(27, 106)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a5"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a5"]
+
+[node name="b5" type="Area2D" parent="ChessPiece"]
+position = Vector2(106, 109)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b5"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b5"]
+
+[node name="c5" type="Area2D" parent="ChessPiece"]
+position = Vector2(185, 108)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c5"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c5"]
+
+[node name="d5" type="Area2D" parent="ChessPiece"]
+position = Vector2(265, 105)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d5"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d5"]
+
+[node name="e5" type="Area2D" parent="ChessPiece"]
+position = Vector2(343, 106)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e5"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e5"]
+
+[node name="f5" type="Area2D" parent="ChessPiece"]
+position = Vector2(419, 107)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f5"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f5"]
+
+[node name="g5" type="Area2D" parent="ChessPiece"]
+position = Vector2(495, 106)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g5"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g5"]
+
+[node name="h5" type="Area2D" parent="ChessPiece"]
+position = Vector2(573, 105)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h5"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h5"]
+
+[node name="a6" type="Area2D" parent="ChessPiece"]
+position = Vector2(29, 46)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a6"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a6"]
+
+[node name="b6" type="Area2D" parent="ChessPiece"]
+position = Vector2(110, 46)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b6"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b6"]
+
+[node name="c6" type="Area2D" parent="ChessPiece"]
+position = Vector2(189, 47)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c6"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c6"]
+
+[node name="d6" type="Area2D" parent="ChessPiece"]
+position = Vector2(265, 46)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d6"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d6"]
+
+[node name="e6" type="Area2D" parent="ChessPiece"]
+position = Vector2(343, 45)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e6"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e6"]
+
+[node name="f6" type="Area2D" parent="ChessPiece"]
+position = Vector2(419, 48)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f6"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f6"]
+
+[node name="g6" type="Area2D" parent="ChessPiece"]
+position = Vector2(497, 47)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g6"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g6"]
+
+[node name="h6" type="Area2D" parent="ChessPiece"]
+position = Vector2(573, 46)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h6"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h6"]
+
+[node name="a7" type="Area2D" parent="ChessPiece"]
+position = Vector2(29, -16)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a7"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a7"]
+
+[node name="b7" type="Area2D" parent="ChessPiece"]
+position = Vector2(110, -16)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b7"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b7"]
+
+[node name="c7" type="Area2D" parent="ChessPiece"]
+position = Vector2(189, -13)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c7"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c7"]
+
+[node name="d7" type="Area2D" parent="ChessPiece"]
+position = Vector2(265, -14)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d7"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d7"]
+
+[node name="e7" type="Area2D" parent="ChessPiece"]
+position = Vector2(344, -14)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e7"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e7"]
+
+[node name="f7" type="Area2D" parent="ChessPiece"]
+position = Vector2(423, -15)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f7"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f7"]
+
+[node name="g7" type="Area2D" parent="ChessPiece"]
+position = Vector2(501, -14)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g7"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g7"]
+
+[node name="h7" type="Area2D" parent="ChessPiece"]
+position = Vector2(576, -14)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h7"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h7"]
+
+[node name="a8" type="Area2D" parent="ChessPiece"]
+position = Vector2(30, -76)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/a8"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/a8"]
+
+[node name="b8" type="Area2D" parent="ChessPiece"]
+position = Vector2(111, -76)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/b8"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/b8"]
+
+[node name="c8" type="Area2D" parent="ChessPiece"]
+position = Vector2(189, -77)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/c8"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/c8"]
+
+[node name="d8" type="Area2D" parent="ChessPiece"]
+position = Vector2(268, -77)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/d8"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/d8"]
+
+[node name="e8" type="Area2D" parent="ChessPiece"]
+position = Vector2(344, -76)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/e8"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/e8"]
+
+[node name="f8" type="Area2D" parent="ChessPiece"]
+position = Vector2(420, -77)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/f8"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/f8"]
+
+[node name="g8" type="Area2D" parent="ChessPiece"]
+position = Vector2(499, -77)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/g8"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/g8"]
+
+[node name="h8" type="Area2D" parent="ChessPiece"]
+position = Vector2(578, -77)
+scale = Vector2(0.5, 0.531579)
+script = SubResource("GDScript_lf2qe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChessPiece/h8"]
+position = Vector2(-23, 0)
+shape = SubResource("RectangleShape2D_5gtj7")
+
+[node name="Sprite2D" type="Sprite2D" parent="ChessPiece/h8"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jyred")
 
-[connection signal="input_event" from="ChessPiece/Area2D" to="ChessPiece/Area2D" method="_on_input_event"]
-[connection signal="mouse_entered" from="ChessPiece/Area2D" to="ChessPiece/Area2D" method="_on_mouse_entered"]
+[connection signal="input_event" from="ChessPiece/a1" to="ChessPiece/a1" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/b1" to="ChessPiece/b1" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/c1" to="ChessPiece/c1" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/d1" to="ChessPiece/d1" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/e1" to="ChessPiece/e1" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/f1" to="ChessPiece/f1" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/g1" to="ChessPiece/g1" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/h1" to="ChessPiece/h1" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/a2" to="ChessPiece/a2" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/b2" to="ChessPiece/b2" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/c2" to="ChessPiece/c2" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/d2" to="ChessPiece/d2" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/e2" to="ChessPiece/e2" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/f2" to="ChessPiece/f2" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/g2" to="ChessPiece/g2" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/h2" to="ChessPiece/h2" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/a3" to="ChessPiece/a3" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/b3" to="ChessPiece/b3" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/c3" to="ChessPiece/c3" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/d3" to="ChessPiece/d3" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/e3" to="ChessPiece/e3" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/f3" to="ChessPiece/f3" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/g3" to="ChessPiece/g3" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/h3" to="ChessPiece/h3" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/a4" to="ChessPiece/a4" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/b4" to="ChessPiece/b4" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/c4" to="ChessPiece/c4" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/d4" to="ChessPiece/d4" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/e4" to="ChessPiece/e4" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/f4" to="ChessPiece/f4" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/g4" to="ChessPiece/g4" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/h4" to="ChessPiece/h4" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/a5" to="ChessPiece/a5" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/b5" to="ChessPiece/b5" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/c5" to="ChessPiece/c5" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/d5" to="ChessPiece/d5" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/e5" to="ChessPiece/e5" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/f5" to="ChessPiece/f5" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/g5" to="ChessPiece/g5" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/h5" to="ChessPiece/h5" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/a6" to="ChessPiece/a6" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/b6" to="ChessPiece/b6" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/c6" to="ChessPiece/c6" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/d6" to="ChessPiece/d6" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/e6" to="ChessPiece/e6" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/f6" to="ChessPiece/f6" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/g6" to="ChessPiece/g6" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/h6" to="ChessPiece/h6" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/a7" to="ChessPiece/a7" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/b7" to="ChessPiece/b7" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/c7" to="ChessPiece/c7" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/d7" to="ChessPiece/d7" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/e7" to="ChessPiece/e7" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/f7" to="ChessPiece/f7" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/g7" to="ChessPiece/g7" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/h7" to="ChessPiece/h7" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/a8" to="ChessPiece/a8" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/b8" to="ChessPiece/b8" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/c8" to="ChessPiece/c8" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/d8" to="ChessPiece/d8" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/e8" to="ChessPiece/e8" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/f8" to="ChessPiece/f8" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/g8" to="ChessPiece/g8" method="_on_input_event"]
+[connection signal="input_event" from="ChessPiece/h8" to="ChessPiece/h8" method="_on_input_event"]
