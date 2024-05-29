@@ -1,28 +1,31 @@
 extends Area2D
 
-const TILE_SIZE = 64
-const WHITE_TILE_TEXTURE = preload("res://assets/gridsquare/white.png")
-const BLACK_TILE_TEXTURE = preload("res://assets/gridsquare/black.png")
-
 func _ready():
-	for i in range(8):
-		for j in range(8):
-			var square_name = String(char(97 + j)) + str(8 - i)
-			var square = Area2D.new()
-			square.name = square_name
-			square.position = Vector2(j * TILE_SIZE, i * TILE_SIZE)
-			
-			var collision_shape = CollisionShape2D.new()
-			var shape = RectangleShape2D.new()
-			shape.extents = Vector2(TILE_SIZE / 2, TILE_SIZE / 2)
-			collision_shape.shape = shape
-			collision_shape.position = Vector2(TILE_SIZE / 2, TILE_SIZE / 2)
-			square.add_child(collision_shape)
-			
-			var sprite = Sprite2D.new()  
-			var texture = WHITE_TILE_TEXTURE if (i + j) % 2 == 0 else BLACK_TILE_TEXTURE
-			sprite.texture = texture
-			sprite.scale = Vector2(TILE_SIZE / float(texture.get_width()), TILE_SIZE / float(texture.get_height()))
-			square.add_child(sprite)
-			
-			add_child(square)
+	var black_texture = preload("res://assets/gridsquare/black.png")
+	var white_texture = preload("res://assets/gridsquare/white.png")
+	
+	var board_size = min(get_viewport_rect().size.x, get_viewport_rect().size.y)
+
+	var square_size = board_size / 8
+
+	for i in range(0, 64):
+		var row = i / 8 
+		var col = i % 8  
+
+		var square = self.get_child(i)
+		var sprite = square.get_child(1)  # Assumes second child is the Sprite2D
+		var collision_shape = square.get_child(0)  # Assumes first child is the CollisionShape2D
+
+		# Set the texture based on the chessboard pattern
+		if (row + col) % 2 == 0:
+			sprite.texture = black_texture
+		else:
+			sprite.texture = white_texture
+		
+		# Scale the sprite
+		sprite.scale = Vector2(1.4, 1.4)
+
+		# Adjust the size of the collision shape using sprite's scale
+		var shape = collision_shape.shape
+		shape.extents = Vector2(sprite.texture.get_size().x * sprite.scale.x / 2, sprite.texture.get_size().y * sprite.scale.y / 2)
+		collision_shape.shape = shape

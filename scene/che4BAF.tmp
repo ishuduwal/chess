@@ -20,41 +20,28 @@ script/source = "extends Area2D
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			player_movement(self, self.get_child(2).name.substr(5, 1))
+			player_movement(self.name,self.get_child(2).name.substr(5).substr(0,1))
+
 
 func _on_mouse_entered():
 	#print(self.name)
 	pass
-
-func player_movement(area, piece):
+func player_movement(area_index, piece):
 	match piece:
-		\"P\":
-			var area_name = str(area.name)  
-			var area_index = int(area_name)  
-			var new_area_index = area_index + 10  
-			var new_area_name = str(new_area_index)  
-			var new_area_node = get_node(\"../\" + new_area_name)  
-			
-			if new_area_node:
-				var new_sprite = Sprite2D.new() 
-				var new_image = preload(\"res://assets/gridsquare/predict.png\")  
-				new_sprite.texture = new_image  
-				new_sprite.position = Vector2(0, 0)
-				new_area_node.add_child(new_sprite) 
-				print(\"pawn moved to \", new_area_name)
-			else:
-				print(\"Failed to find node for new area: \", new_area_name)
-		\"B\":
-			print(\"bishop moved \", area.name)
-		\"K\":
-			print(\"king moved \", area.name)
-		\"Q\":
-			print(\"queen moved \", area.name)
-		\"R\":
-			print(\"rook moved \", area.name)
-		\"Z\":
-			print(\"Knight moved\")
-
+		\"p\":
+			print(\"pawn moved\")
+		\"b\":
+			print(\"bishop moved\")
+		\"k\":
+			print(\"king moved\")
+		\"q\":
+			print(\"queen moved\")
+		\"r\":
+			print(\"rook moved\")
+		\"z\":
+			print(\"zebra moved\")
+		_: 
+			print(\"unknown piece:\", piece)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5gtj7"]
