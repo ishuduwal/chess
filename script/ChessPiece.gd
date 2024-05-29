@@ -29,3 +29,7 @@ func _ready():
 		var shape = collision_shape.shape
 		shape.extents = Vector2(sprite.texture.get_size().x * sprite.scale.x / 2, sprite.texture.get_size().y * sprite.scale.y / 2)
 		collision_shape.shape = shape
+
+
+func _on__mouse_entered():
+	pass # Replace with function body.
