@@ -31,11 +31,12 @@ func _on_mouse_entered():
 func player_movement(area, piece):
 	match piece:
 		\"P\":
-			var area_name = str(area.name) 
-			var area_index = int(area_name)  
-			var initial_row = 2  
+			var area_name = str(area.name)  # Get the area name
+			var area_index = int(area_name)  # Convert the area name to an integer
+			var initial_row = 2  # Assuming pawns start from row 2 (adjust if different)
 			var new_area_indices = []
 
+			# Check if the pawn is in its initial position
 			if area_index >= initial_row * 10 and area_index < (initial_row + 1) * 10:
 				new_area_indices.append(area_index + 20)  # Two steps ahead
 			new_area_indices.append(area_index + 10)  # One step ahead

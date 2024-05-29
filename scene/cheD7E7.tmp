@@ -17,42 +17,21 @@
 [sub_resource type="GDScript" id="GDScript_lf2qe"]
 script/source = "extends Area2D
 
+var has_moved = false  # Track if the pawn has moved
+
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			var global_mouse_pos = get_global_mouse_position()
-			print(\"Global Mouse Position: \", global_mouse_pos)
-			player_movement(self, self.get_child(2).name.substr(5, 1))
+			display_possible_moves(self, self.get_child(2).name.substr(5, 1))
 
 func _on_mouse_entered():
 	#print(self.name)
 	pass
 
-func player_movement(area, piece):
+func display_possible_moves(area, piece):
 	match piece:
 		\"P\":
-			var area_name = str(area.name) 
-			var area_index = int(area_name)  
-			var initial_row = 2  
-			var new_area_indices = []
-
-			if area_index >= initial_row * 10 and area_index < (initial_row + 1) * 10:
-				new_area_indices.append(area_index + 20)  # Two steps ahead
-			new_area_indices.append(area_index + 10)  # One step ahead
-
-			for new_area_index in new_area_indices:
-				var new_area_name = str(new_area_index)  # Convert new index back to string
-				var new_area_node = get_node(\"../\" + new_area_name)  # Get the new area node
-
-				if new_area_node:
-					var new_sprite = Sprite2D.new() 
-					var new_image = preload(\"res://assets/gridsquare/predict.png\")  
-					new_sprite.texture = new_image  
-					new_sprite.position = Vector2(0, 0)
-					new_area_node.add_child(new_sprite) 
-					print(\"Pawn can move to \", new_area_name)
-				else:
-					print(\"Failed to find node for new area: \", new_area_name)
+			show_pawn_moves(area)
 		\"B\":
 			print(\"bishop moved \", area.name)
 		\"K\":
@@ -63,6 +42,47 @@ func player_movement(area, piece):
 			print(\"rook moved \", area.name)
 		\"Z\":
 			print(\"Knight moved\")
+
+func show_pawn_moves(area):
+	var area_name = str(area.name)
+	var area_index = int(area_name)
+	
+	var move_steps = 1
+	if not has_moved:
+		move_steps = 2
+
+	for i in range(1, move_steps + 1):
+		var new_area_index = area_index + (i * 10)
+		var new_area_name = str(new_area_index)
+		var new_area_node = get_node(\"../\" + new_area_name)
+
+		if new_area_node:
+			print(\"Pawn can move to \", new_area_name)
+			# Optionally, you can highlight the new area node or show some indicator
+		else:
+			print(\"Failed to find node for new area: \", new_area_name)
+
+func confirm_move_pawn(current_area, new_area_name):
+	var current_area_index = int(str(current_area.name))
+	var new_area_index = int(new_area_name)
+	
+	if new_area_index == current_area_index + 10 or (not has_moved and new_area_index == current_area_index + 20):
+		var new_area_node = get_node(\"../\" + new_area_name)
+		if new_area_node:
+			var pawn_sprite = current_area.get_child(2)  # Assuming the pawn is the third child
+			current_area.remove_child(pawn_sprite)
+			new_area_node.add_child(pawn_sprite)
+			pawn_sprite.position = Vector2(0, 0)  # Reset position within the new area
+			print(\"Pawn moved to \", new_area_name)
+			has_moved = true
+		else:
+			print(\"Failed to find node for new area: \", new_area_name)
+	else:
+		print(\"Invalid move\")
+
+# Note: You need to call `confirm_move_pawn` with appropriate parameters to move the pawn.
+# Example call to confirm_move_pawn:
+# confirm_move_pawn($CurrentArea, \"31\")
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5gtj7"]
