@@ -36,6 +36,12 @@ func create_sprite(area,piece):
 		"B":
 			full_name = "Bishop"
 			color = "White" if piece.get_child(2).name.substr(0,5) == "White" else "Black"
+		"R":
+			full_name = "Rook"
+			color = "White" if piece.get_child(2).name.substr(0,5) == "White" else "Black"
+		"Q":
+			full_name = "Queen"
+			color = "White" if piece.get_child(2).name.substr(0,5) == "White" else "Black"
 	var new_sprite = Sprite2D.new()
 	print(color)
 	print(full_name)
@@ -171,18 +177,52 @@ func player_movement(area, piece):
 					new_area_index += direction
 					
 		"Q":
-			print("Queen moved ", area.name)
+			# Queen movement logic (combining Bishop and Rook movements)
+			var area_name = str(area.name)
+			var area_index = int(area_name)
+
+			# Define all possible directions for the Queen
+			var directions = [-1, 1, -10, 10, -11, -9, 9, 11]
+
+			for direction in directions:
+				var new_area_index = area_index + direction
+				while new_area_index >= 0 and new_area_index <= 77:
+					# Ensure queen does not wrap around horizontally
+					if direction == -1 and new_area_index % 10 == 9:  # Moved from 10 to 9 (invalid)
+						break
+					if direction == 1 and new_area_index % 10 == 0:  # Moved from 9 to 10 (invalid)
+						break
+
+					var new_area_name = str(new_area_index)
+					var new_area_node = get_node("../" + new_area_name)
+					if new_area_node:
+						var possible_move = Sprite2D.new()
+						var new_image = preload("res://assets/gridsquare/predict.png")
+						possible_move.texture = new_image
+						possible_move.position = Vector2(0, 0)
+						possible_move.name = "possible_move"
+						new_area_node.add_child(possible_move)
+						print("Queen possible move to ", new_area_name)
+					else:
+						print("Failed to find node for new area: ", new_area_name)
+					new_area_index += direction
 		"R":
 			# Rook movement logic
 			var area_name = str(area.name)
 			var area_index = int(area_name)
 
-			# Define directions for horizontal and vertical movement
+			# Define rook movement directions: left, right, up, down
 			var directions = [-1, 1, -10, 10]
 
 			for direction in directions:
 				var new_area_index = area_index + direction
 				while new_area_index >= 0 and new_area_index <= 77:
+					# Ensure rook does not wrap around horizontally
+					if direction == -1 and new_area_index % 10 == 9:  # Moved from 10 to 9 (invalid)
+						break
+					if direction == 1 and new_area_index % 10 == 0:  # Moved from 9 to 10 (invalid)
+						break
+
 					var new_area_name = str(new_area_index)
 					var new_area_node = get_node("../" + new_area_name)
 					if new_area_node:
