@@ -19,6 +19,7 @@ func _on_input_event(viewport, event, shape_idx):
 func _on_mouse_entered():
 	#print(self.name)
 	pass
+	
 func create_sprite(area,piece):
 	var full_name = ""
 	var color = ""
@@ -57,6 +58,15 @@ func check_possible(area):
 		if area.get_child(i).name == "possible_move":
 			return true
 	return false	
+
+func is_blocked(piece, new_area_node):
+	if new_area_node:
+		if new_area_node.get_child_count() > 0:
+			if piece.get_child(2).name.substr(0,5) != new_area_node.get_child(0).name.substr(0,5):
+				return false
+		return true
+	return false
+
 
 func player_movement(area, piece):
 	global.selected_node = area
@@ -103,7 +113,6 @@ func player_movement(area, piece):
 					print("Pawn moved to ", new_area_name)
 				else:
 					print("Failed to find node for new area: ", new_area_name)
-
 		"Z":
 			var area_name = str(area.name)
 			var area_index = int(area_name)
@@ -133,10 +142,14 @@ func player_movement(area, piece):
 			var area_name = str(area.name)
 			var area_index = int(area_name)
 			var king_moves = [
-				area_index - 1,   # Move left
-				area_index + 1,   # Move right
-				area_index - 10,  # Move up
-				area_index + 10,  # Move down
+					area_index - 11, # Move up-left
+					area_index - 10, # Move up
+					area_index - 9,  # Move up-right
+					area_index - 1,  # Move left
+					area_index + 1,  # Move right
+					area_index + 9,  # Move down-left
+					area_index + 10, # Move down
+					area_index + 11 # Move down-right
 			]
 			for new_area_index in king_moves:
 				var new_area_name = str(new_area_index)
@@ -177,10 +190,9 @@ func player_movement(area, piece):
 					new_area_index += direction
 					
 		"Q":
-			# Queen movement logic (combining Bishop and Rook movements)
 			var area_name = str(area.name)
 			var area_index = int(area_name)
-
+			
 			# Define all possible directions for the Queen
 			var directions = [-1, 1, -10, 10, -11, -9, 9, 11]
 
@@ -195,7 +207,7 @@ func player_movement(area, piece):
 
 					var new_area_name = str(new_area_index)
 					var new_area_node = get_node("../" + new_area_name)
-					if new_area_node:
+					if new_area_node and not is_blocked(piece, new_area_node):
 						var possible_move = Sprite2D.new()
 						var new_image = preload("res://assets/gridsquare/predict.png")
 						possible_move.texture = new_image
@@ -204,7 +216,7 @@ func player_movement(area, piece):
 						new_area_node.add_child(possible_move)
 						print("Queen possible move to ", new_area_name)
 					else:
-						print("Failed to find node for new area: ", new_area_name)
+						print("Failed to find node for new area or path is blocked: ", new_area_name)
 					new_area_index += direction
 		"R":
 			# Rook movement logic
