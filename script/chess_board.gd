@@ -33,6 +33,9 @@ func create_sprite(area,piece):
 		"K":
 			full_name = "King"
 			color = "White" if piece.get_child(2).name.substr(0,5) == "White" else "Black"
+		"B":
+			full_name = "Bishop"
+			color = "White" if piece.get_child(2).name.substr(0,5) == "White" else "Black"
 	var new_sprite = Sprite2D.new()
 	print(color)
 	print(full_name)
@@ -57,18 +60,29 @@ func player_movement(area, piece):
 			# Pawn movement logic
 			var area_name = str(area.name)
 			var area_index = int(area_name)
-
+			var color = area.get_child(2).name.substr(0,5)
 			# Check if it's the first move of the pawn
-			var initial_row = 2
-			var is_first_move = (area_index >= initial_row * 10 and area_index < (initial_row + 1) * 10)
+			var initial_row = 2 if color == "White" else 7
+			var is_first_move = false
+			if color == "White":
+				is_first_move = area_index >= initial_row * 10 and area_index < (initial_row + 1) * 10
+			else:
+				is_first_move = area_index >= (initial_row - 1) * 10 and area_index < initial_row * 10
+
+			print("Pawn color: ", color)
+			print("Initial row: ", initial_row)
+			print("Is first move: ", is_first_move)
+			print("Area index: ", area_index)
 
 			var new_area_indices = []
-
-			if is_first_move:
-				new_area_indices.append(area_index + 20)  # Two steps ahead
-
-			new_area_indices.append(area_index + 10)  # One step ahead
-
+			if color == "White":
+				if is_first_move:
+					new_area_indices.append(area_index + 20)  # Two steps ahead
+					new_area_indices.append(area_index + 10)  # One step ahead
+				else:
+					if is_first_move:
+						new_area_indices.append(area_index -20)
+						new_area_indices.append(area_index - 10)
 			for new_area_index in new_area_indices:
 				var new_area_name = str(new_area_index)
 				var new_area_node = get_node("../" + new_area_name)
@@ -132,8 +146,53 @@ func player_movement(area, piece):
 				else:
 					print("Failed to find node for new area: ", new_area_name)
 		"B":
-			print("Bishop moved ", area.name)
+			# Bishop movement logic
+			var area_name = str(area.name)
+			var area_index = int(area_name)
+
+			# Define diagonal directions
+			var directions = [-11, -9, 9, 11]
+
+			for direction in directions:
+				var new_area_index = area_index + direction
+				while new_area_index >= 0 and new_area_index <= 77:
+					var new_area_name = str(new_area_index)
+					var new_area_node = get_node("../" + new_area_name)
+					if new_area_node:
+						var possible_move = Sprite2D.new()
+						var new_image = preload("res://assets/gridsquare/predict.png")
+						possible_move.texture = new_image
+						possible_move.position = Vector2(0, 0)
+						possible_move.name = "possible_move"
+						new_area_node.add_child(possible_move)
+						print("Bishop possible move to ", new_area_name)
+					else:
+						print("Failed to find node for new area: ", new_area_name)
+					new_area_index += direction
+					
 		"Q":
 			print("Queen moved ", area.name)
 		"R":
-			print("Rook moved ", area.name)
+			# Rook movement logic
+			var area_name = str(area.name)
+			var area_index = int(area_name)
+
+			# Define directions for horizontal and vertical movement
+			var directions = [-1, 1, -10, 10]
+
+			for direction in directions:
+				var new_area_index = area_index + direction
+				while new_area_index >= 0 and new_area_index <= 77:
+					var new_area_name = str(new_area_index)
+					var new_area_node = get_node("../" + new_area_name)
+					if new_area_node:
+						var possible_move = Sprite2D.new()
+						var new_image = preload("res://assets/gridsquare/predict.png")
+						possible_move.texture = new_image
+						possible_move.position = Vector2(0, 0)
+						possible_move.name = "possible_move"
+						new_area_node.add_child(possible_move)
+						print("Rook possible move to ", new_area_name)
+					else:
+						print("Failed to find node for new area: ", new_area_name)
+					new_area_index += direction
