@@ -44,8 +44,6 @@ func create_sprite(area,piece):
 			full_name = "Queen"
 			color = "White" if piece.get_child(2).name.substr(0,5) == "White" else "Black"
 	var new_sprite = Sprite2D.new()
-	print(color)
-	print(full_name)
 	var path = "res://assets/"+ color +"/"+full_name+".png"
 	var new_image = load(path)  
 	new_sprite.texture = new_image  
@@ -57,20 +55,10 @@ func check_possible(area):
 	for i in area.get_child_count():
 		if area.get_child(i).name == "possible_move":
 			return true
-	return false	
-
-func is_blocked(piece, new_area_node):
-	if new_area_node:
-		if new_area_node.get_child_count() > 0:
-			if piece.get_child(2).name.substr(0,5) != new_area_node.get_child(0).name.substr(0,5):
-				return false
-		return true
 	return false
-
 
 func player_movement(area, piece):
 	global.selected_node = area
-	print(global.selected_node.name)
 	match piece:
 		"P":
 			# Pawn movement logic
@@ -83,12 +71,8 @@ func player_movement(area, piece):
 			if color == "White":
 				is_first_move = area_index >= initial_row * 10 and area_index < (initial_row + 1) * 10
 			else:
-				is_first_move = area_index >= (initial_row - 1) * 10 and area_index < initial_row * 10
-
-			print("Pawn color: ", color)
-			print("Initial row: ", initial_row)
-			print("Is first move: ", is_first_move)
-			print("Area index: ", area_index)
+				is_first_move = area_index >= (initial_row - 1) * 10 and area_index < (initial_row +1) * 10
+				print("Color:", color, "Initial row:", initial_row, "Area index:", area_index, "Is first move:", is_first_move)
 
 			var new_area_indices = []
 			if color == "White":
@@ -96,9 +80,15 @@ func player_movement(area, piece):
 					new_area_indices.append(area_index + 20)  # Two steps ahead
 					new_area_indices.append(area_index + 10)  # One step ahead
 				else:
-					if is_first_move:
-						new_area_indices.append(area_index -20)
-						new_area_indices.append(area_index - 10)
+					new_area_indices.append(area_index + 10)
+			else:
+				if is_first_move:
+					new_area_indices.append(area_index - 20) 
+					new_area_indices.append(area_index - 10)
+				else:
+					new_area_indices.append(area_index - 10)
+					print("New area indices for", color, ":", new_area_indices)
+					
 			for new_area_index in new_area_indices:
 				var new_area_name = str(new_area_index)
 				var new_area_node = get_node("../" + new_area_name)
@@ -207,7 +197,7 @@ func player_movement(area, piece):
 
 					var new_area_name = str(new_area_index)
 					var new_area_node = get_node("../" + new_area_name)
-					if new_area_node and not is_blocked(piece, new_area_node):
+					if new_area_node:
 						var possible_move = Sprite2D.new()
 						var new_image = preload("res://assets/gridsquare/predict.png")
 						possible_move.texture = new_image

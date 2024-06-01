@@ -16,7 +16,7 @@ func _ready():
 		var sprite = square.get_child(1)  # Assumes second child is the Sprite2D
 		var collision_shape = square.get_child(0)  # Assumes first child is the CollisionShape2D
 
-		# Set the texture based on the chessboard pattern
+		# Set the texture based on the chessboard pattern 
 		if (row + col) % 2 == 0:
 			sprite.texture = black_texture
 		else:
@@ -32,4 +32,9 @@ func _ready():
 
 
 func _on__mouse_entered():
+	pass # Replace with function body.
+
+
+
+func _on_options_2d_input_event(viewport, event, shape_idx):
 	pass # Replace with function body.

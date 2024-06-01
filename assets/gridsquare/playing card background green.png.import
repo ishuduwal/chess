@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0dl0cf0xhkdj"
-path="res://.godot/imported/Queen.png-8805717503843469a7938692ab052342.ctex"
+uid="uid://ct202j0njdlps"
+path="res://.godot/imported/playing card background green.png-82a3e101cd3587b55da4cadd029978d1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Black/Queen.png"
-dest_files=["res://.godot/imported/Queen.png-8805717503843469a7938692ab052342.ctex"]
+source_file="res://assets/gridsquare/playing card background green.png"
+dest_files=["res://.godot/imported/playing card background green.png-82a3e101cd3587b55da4cadd029978d1.ctex"]
 
 [params]
 

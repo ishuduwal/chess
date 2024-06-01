@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://c05bup0hjw8md"]
+[gd_scene load_steps=17 format=3 uid="uid://c05bup0hjw8md"]
 
 [ext_resource type="Script" path="res://script/ChessPiece.gd" id="2_4ocro"]
+[ext_resource type="Texture2D" uid="uid://brlvud2enxpqy" path="res://assets/Black/King.png" id="2_81k4a"]
 [ext_resource type="Texture2D" uid="uid://7k60up3oxxdf" path="res://assets/White/Rook.png" id="2_mebvh"]
 [ext_resource type="Texture2D" uid="uid://c3uy1r0wdoack" path="res://assets/White/Pawn.png" id="2_tg1bq"]
 [ext_resource type="Script" path="res://script/chess_board.gd" id="2_xi452"]
@@ -12,30 +13,12 @@
 [ext_resource type="Texture2D" uid="uid://n70iwhd7axsp" path="res://assets/Black/Rook.png" id="9_3snmd"]
 [ext_resource type="Texture2D" uid="uid://cq556t21g3ubj" path="res://assets/Black/Knight.png" id="10_0882p"]
 [ext_resource type="Texture2D" uid="uid://bvb38nw8bhbdb" path="res://assets/Black/Bishop.png" id="11_i8y0v"]
-[ext_resource type="Texture2D" uid="uid://c0dl0cf0xhkdj" path="res://assets/Black/Queen.png" id="13_ndpoq"]
-[ext_resource type="Texture2D" uid="uid://brlvud2enxpqy" path="res://assets/Black/King.png" id="13_vfy2f"]
-[ext_resource type="Texture2D" uid="uid://qntvo41i8em6" path="res://assets/icons/Option.png" id="15_4ilpc"]
-[ext_resource type="PackedScene" uid="uid://bq0okd84iovmk" path="res://scene/options_game.tscn" id="16_7cffl"]
+[ext_resource type="Texture2D" uid="uid://c0dl0cf0xhkdj" path="res://assets/Black/Queen.png" id="12_sf8gw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5gtj7"]
 size = Vector2(110, 110)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyred"]
-
-[sub_resource type="GDScript" id="GDScript_dxtos"]
-script/source = "extends Area2D
-@onready var options_game = $\"../OptionsGame\"
-
-
-func _on_input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
-			options_game.visible = true
-			options_game.z_index = 1
-	
-"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7fojs"]
 
 [node name="ChessBoard" type="Area2D"]
 position = Vector2(527, 246)
@@ -795,7 +778,7 @@ shape = SubResource("RectangleShape2D_5gtj7")
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/84"]
 
 [node name="BlackQ0" type="Sprite2D" parent="ChessPiece/84"]
-texture = ExtResource("13_ndpoq")
+texture = ExtResource("12_sf8gw")
 
 [node name="85" type="Area2D" parent="ChessPiece"]
 position = Vector2(294, -79)
@@ -809,7 +792,7 @@ shape = SubResource("RectangleShape2D_5gtj7")
 [node name="Sprite2D" type="Sprite2D" parent="ChessPiece/85"]
 
 [node name="BlackK0" type="Sprite2D" parent="ChessPiece/85"]
-texture = ExtResource("13_vfy2f")
+texture = ExtResource("2_81k4a")
 
 [node name="86" type="Area2D" parent="ChessPiece"]
 position = Vector2(364, -79)
@@ -862,22 +845,6 @@ shape = SubResource("RectangleShape2D_jyred")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(36, 3)
-
-[node name="Options2D" type="Area2D" parent="."]
-position = Vector2(510, -224)
-script = SubResource("GDScript_dxtos")
-
-[node name="MenuOptions" type="Sprite2D" parent="Options2D"]
-position = Vector2(0, 1)
-scale = Vector2(0.02, 0.02)
-texture = ExtResource("15_4ilpc")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Options2D"]
-shape = SubResource("RectangleShape2D_7fojs")
-
-[node name="OptionsGame" parent="." instance=ExtResource("16_7cffl")]
-visible = false
-z_index = -1
 
 [connection signal="input_event" from="ChessPiece/11" to="ChessPiece/11" method="_on_input_event"]
 [connection signal="mouse_entered" from="ChessPiece/11" to="ChessPiece" method="_on__mouse_entered"]
@@ -945,4 +912,3 @@ z_index = -1
 [connection signal="input_event" from="ChessPiece/86" to="ChessPiece/86" method="_on_input_event"]
 [connection signal="input_event" from="ChessPiece/87" to="ChessPiece/87" method="_on_input_event"]
 [connection signal="input_event" from="ChessPiece/88" to="ChessPiece/88" method="_on_input_event"]
-[connection signal="input_event" from="Options2D" to="Options2D" method="_on_input_event"]
