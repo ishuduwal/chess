@@ -726,7 +726,7 @@ shape = SubResource("RectangleShape2D_5gtj7")
 texture = ExtResource("8_kpt6e")
 
 [node name="78" type="Area2D" parent="ChessPiece"]
-position = Vector2(509, -17)
+position = Vector2(510, -17)
 scale = Vector2(0.5, 0.531579)
 script = ExtResource("2_xi452")
 

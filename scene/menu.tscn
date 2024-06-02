@@ -85,6 +85,29 @@ position = Vector2(-15, -73)
 rotation = -0.189058
 texture = ExtResource("4_nw4nc")
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -38.0
+offset_top = -9.0
+offset_right = 32.0
+offset_bottom = 26.0
+rotation = -0.114906
+theme_override_colors/font_color = Color(0, 0, 0.0352941, 1)
+theme_override_font_sizes/font_size = 25
+text = "Chess"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 47.0
+offset_top = -16.0
+offset_right = 117.0
+offset_bottom = 19.0
+rotation = 0.0252281
+theme_override_colors/font_color = Color(0, 0, 0.0352941, 1)
+theme_override_font_sizes/font_size = 25
+text = "Hero
+"
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_exit_pressed"]
