@@ -18,3 +18,7 @@ func _on_restart_pressed():
 
 func _on_exit_game_pressed():
 	get_tree().quit()
+
+
+func _on_back_pressed():
+	self.visible=false
