@@ -25,16 +25,18 @@ func _on_input_event(viewport, event, shape_idx):
 				
 
 func _on_mouse_entered():
-	#print(self.name)
+	print(self.name)
 	pass
 
 func remove_possible_move():
 	for i in global.selected_possible_move:
 		var node = get_node("../" + str(i))
-		if node and node.get_child_count() > 2:
-			var to_be_deleted_node = node.get_child(2)
-			if to_be_deleted_node and to_be_deleted_node.name == "possible_move":
-				node.remove_child(to_be_deleted_node)
+		if node:
+			for child in node.get_children():
+				if child.name == "possible_move":
+					node.remove_child(child)
+					child.queue_free()  # Make sure to free the node from memory
+
 
 func create_sprite(area, piece):
 	var full_name = ""
@@ -71,6 +73,7 @@ func check_possible(area):
 		if area.get_child(i).name == "possible_move":
 			return true
 	return false
+
 
 func possible_move(area, piece):
 	if global.turn != self.get_child(2).name.substr(0, 5).to_lower():
@@ -241,19 +244,22 @@ func possible_move(area, piece):
 			for direction in directions:
 				var new_area_index = area_index + direction
 				while new_area_index >= 0 and new_area_index <= 77:
-					if direction == -1 and new_area_index % 10 == 9:
-						break
-					if direction == 1 and new_area_index % 10 == 0:
-						break
+					if direction in [-1, -11, 9] and new_area_index % 10 == 9:
+						break  # Stop if it crosses left boundary
+					if direction in [1, -9, 11] and new_area_index % 10 == 0:
+						break  # Stop if it crosses right boundary
 
 					var new_area_name = str(new_area_index)
 					var new_area_node = get_node("../" + new_area_name)
+					print("Checking node:", new_area_name)  # Debug print
 					if new_area_node:
 						if new_area_node.get_child_count() == 2:
 							possible_moves.append(new_area_index)
+							print("Adding move:", new_area_name)  # Debug print
 							new_area_index += direction
 						elif new_area_node.get_child_count() == 3 and new_area_node.get_child(2).name.substr(0, 5) != piece_color:
 							possible_moves.append(new_area_index)
+							print("Adding attack move:", new_area_name)  # Debug print
 							break
 						else:
 							break
@@ -275,7 +281,6 @@ func possible_move(area, piece):
 					print("Queen can move to ", new_area_name)
 				else:
 					print("Failed to find node for new area: ", new_area_name)
-
 		"R":
 				var area_name = str(area.name)
 				var area_index = int(area_name)
