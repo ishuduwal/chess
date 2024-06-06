@@ -38,3 +38,7 @@ func _on__mouse_entered():
 
 func _on_options_2d_input_event(viewport, event, shape_idx):
 	pass # Replace with function body.
+
+
+func _on__input_event(viewport, event, shape_idx):
+	pass # Replace with function body.

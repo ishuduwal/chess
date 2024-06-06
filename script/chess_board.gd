@@ -1,4 +1,5 @@
 extends Area2D
+@onready var chess_board = $"../.."
 
 var global = Game
 func _on_input_event(viewport, event, shape_idx):
@@ -16,13 +17,27 @@ func _on_input_event(viewport, event, shape_idx):
 					
 					create_sprite(self, global.selected_node)
 					global.selected_node.remove_child(to_remove_piece)
-					global.turn = "black" if global.turn == "white" else "white"
+					
+					# Check for pawn promotion
+					var row = int(str(self.name)[0])  # Extract row number from node name
+					var piece_type = to_remove_piece.name.substr(5, 1)  # Get the piece type
+					if piece_type == "P" and ((global.turn == "black" and row == 1) or (global.turn == "white" and row == 8)):
+						const Pawn_promotion = preload("res://scene/promotion_pawn.tscn")
+						var Pawn_promotion_instance = Pawn_promotion.instantiate()
+						chess_board.add_child(Pawn_promotion_instance)
+						print(self.name)
+						global.promoted_pawn = self
+						print(global.turn.capitalize(), "pawn to be promoted")
+					if global.turn == "white":
+						global.turn = "black"
+					else:
+						global.turn = "white"
 				else:
 					remove_possible_move()
 					possible_move(self, self.get_child(2).name.substr(5, 1))
 			else:
 				remove_possible_move()
-				
+
 
 func _on_mouse_entered():
 	print(self.name)
@@ -36,7 +51,6 @@ func remove_possible_move():
 				if child.name == "possible_move":
 					node.remove_child(child)
 					child.queue_free()  # Make sure to free the node from memory
-
 
 func create_sprite(area, piece):
 	var full_name = ""
@@ -74,11 +88,10 @@ func check_possible(area):
 			return true
 	return false
 
-
 func possible_move(area, piece):
 	if global.turn != self.get_child(2).name.substr(0, 5).to_lower():
 		return
-		remove_possible_move()
+	remove_possible_move()
 	global.selected_node = area
 	global.selected_piece = area.get_child(2).name
 	var piece_color = area.get_child(2).name.substr(0, 5)
@@ -91,7 +104,7 @@ func possible_move(area, piece):
 			if piece_color == "White":
 				is_first_move = area_index >= initial_row * 10 and area_index < (initial_row + 1) * 10
 			else:
-				is_first_move = area_index >= (initial_row - 1) * 10 and area_index < (initial_row + 1) * 10
+				is_first_move = area_index >= initial_row * 10 and area_index < (initial_row + 1) * 10
 
 			var new_area_indices = []
 			if piece_color == "White":
@@ -127,6 +140,7 @@ func possible_move(area, piece):
 							possible_move.name = "possible_move"
 							possible_move.z_index = 10
 							new_area_node.add_child(possible_move)
+							print(self.name)
 					else:  # Check for diagonal attack moves
 						if new_area_node.get_child_count() == 3:  # Ensure there's an opponent piece
 							if new_area_node.get_child(2).name.substr(0, 5) != piece_color:
@@ -141,6 +155,7 @@ func possible_move(area, piece):
 							print("No opponent piece for attack at: ", new_area_name)
 				else:
 					print("Failed to find node for new area: ", new_area_name)
+					
 		"Z":
 			var area_name = str(area.name)
 			var area_index = int(area_name)
@@ -162,6 +177,7 @@ func possible_move(area, piece):
 						possible_move.position = Vector2(0, 0)
 						possible_move.name = "possible_move"
 						new_area_node.add_child(possible_move)
+						print(self.name)
 					elif new_area_node.get_child_count() == 3 and new_area_node.get_child(2).name.substr(0, 5) != piece_color:  # Opponent piece is present
 						var possible_attack = Sprite2D.new()
 						var attack_image = preload("res://assets/gridsquare/attack.png")
@@ -190,6 +206,7 @@ func possible_move(area, piece):
 					possible_move.texture = new_image
 					possible_move.position = Vector2(0, 0)
 					possible_move.name = "possible_move"
+					print(self.name)
 					if new_area_node.get_child_count() == 3 and new_area_node.get_child(2).name.substr(0, 5) != piece_color:
 						possible_move.texture = preload("res://assets/gridsquare/attack.png")
 					new_area_node.add_child(possible_move)
@@ -204,7 +221,7 @@ func possible_move(area, piece):
 			var possible_moves = []
 			for direction in directions:
 				var new_area_index = area_index + direction
-				while new_area_index >= 0 and new_area_index <= 77:
+				while new_area_index >= 0 and new_area_index <= 88:
 					var new_area_name = str(new_area_index)
 					var new_area_node = get_node("../" + new_area_name)
 					if new_area_node:
@@ -228,9 +245,8 @@ func possible_move(area, piece):
 					possible_move.texture = new_image
 					possible_move.position = Vector2(0, 0)
 					possible_move.name = "possible_move"
-					if new_area_node.get_child_count() == 2:
-						possible_move.texture = preload("res://assets/gridsquare/predict.png")
-					elif new_area_node.get_child_count() == 3 and new_area_node.get_child(2).name.substr(0, 5) != piece_color:
+					print(self.name)
+					if new_area_node.get_child_count() == 3 and new_area_node.get_child(2).name.substr(0, 5) != piece_color:
 						possible_move.texture = preload("res://assets/gridsquare/attack.png")
 					new_area_node.add_child(possible_move)
 					print("Bishop can move to ", new_area_name)
@@ -243,23 +259,15 @@ func possible_move(area, piece):
 			var possible_moves = []
 			for direction in directions:
 				var new_area_index = area_index + direction
-				while new_area_index >= 0 and new_area_index <= 77:
-					if direction in [-1, -11, 9] and new_area_index % 10 == 9:
-						break  # Stop if it crosses left boundary
-					if direction in [1, -9, 11] and new_area_index % 10 == 0:
-						break  # Stop if it crosses right boundary
-
+				while new_area_index >= 0 and new_area_index <= 88:
 					var new_area_name = str(new_area_index)
 					var new_area_node = get_node("../" + new_area_name)
-					print("Checking node:", new_area_name)  # Debug print
 					if new_area_node:
 						if new_area_node.get_child_count() == 2:
 							possible_moves.append(new_area_index)
-							print("Adding move:", new_area_name)  # Debug print
 							new_area_index += direction
 						elif new_area_node.get_child_count() == 3 and new_area_node.get_child(2).name.substr(0, 5) != piece_color:
 							possible_moves.append(new_area_index)
-							print("Adding attack move:", new_area_name)  # Debug print
 							break
 						else:
 							break
@@ -275,51 +283,49 @@ func possible_move(area, piece):
 					possible_move.texture = new_image
 					possible_move.position = Vector2(0, 0)
 					possible_move.name = "possible_move"
+					print(self.name)
 					if new_area_node.get_child_count() == 3 and new_area_node.get_child(2).name.substr(0, 5) != piece_color:
 						possible_move.texture = preload("res://assets/gridsquare/attack.png")
 					new_area_node.add_child(possible_move)
 					print("Queen can move to ", new_area_name)
 				else:
 					print("Failed to find node for new area: ", new_area_name)
-		"R":
-				var area_name = str(area.name)
-				var area_index = int(area_name)
-				var directions = [-1, 1, -10, 10]
-				var possible_moves = []
-				for direction in directions:
-					var new_area_index = area_index + direction
-					while new_area_index >= 0 and new_area_index <= 77:
-						if direction == -1 and new_area_index % 10 == 9:
-							break
-						if direction == 1 and new_area_index % 10 == 0:
-							break
 
-						var new_area_name = str(new_area_index)
-						var new_area_node = get_node("../" + new_area_name)
-						if new_area_node:
-							if new_area_node.get_child_count() == 2:
-								possible_moves.append(new_area_index)
-								new_area_index += direction
-							elif new_area_node.get_child_count() == 3 and new_area_node.get_child(2).name.substr(0, 5) != piece_color:
-								possible_moves.append(new_area_index)
-								break
-							else:
-								break
-						else:
-							break
-				global.selected_possible_move = possible_moves
-				for move in possible_moves:
-					var new_area_name = str(move)
+		"R":
+			var area_name = str(area.name)
+			var area_index = int(area_name)
+			var directions = [-1, 1, -10, 10]
+			var possible_moves = []
+			for direction in directions:
+				var new_area_index = area_index + direction
+				while new_area_index >= 0 and new_area_index <= 88:
+					var new_area_name = str(new_area_index)
 					var new_area_node = get_node("../" + new_area_name)
 					if new_area_node:
-						var possible_move = Sprite2D.new()
-						var new_image = preload("res://assets/gridsquare/predict.png")
-						possible_move.texture = new_image
-						possible_move.position = Vector2(0, 0)
-						possible_move.name = "possible_move"
-						if new_area_node.get_child_count() == 3 and new_area_node.get_child(2).name.substr(0, 5) != piece_color:
-							possible_move.texture = preload("res://assets/gridsquare/attack.png")
-						new_area_node.add_child(possible_move)
-						print("Rook can move to ", new_area_name)
+						if new_area_node.get_child_count() == 2:
+							possible_moves.append(new_area_index)
+							new_area_index += direction
+						elif new_area_node.get_child_count() == 3 and new_area_node.get_child(2).name.substr(0, 5) != piece_color:
+							possible_moves.append(new_area_index)
+							break
+						else:
+							break
 					else:
-						print("Failed to find node for new area: ", new_area_name)
+						break
+			global.selected_possible_move = possible_moves
+			for move in possible_moves:
+				var new_area_name = str(move)
+				var new_area_node = get_node("../" + new_area_name)
+				if new_area_node:
+					var possible_move = Sprite2D.new()
+					var new_image = preload("res://assets/gridsquare/predict.png")
+					possible_move.texture = new_image
+					possible_move.position = Vector2(0, 0)
+					possible_move.name = "possible_move"
+					print(self.name)
+					if new_area_node.get_child_count() == 3 and new_area_node.get_child(2).name.substr(0, 5) != piece_color:
+						possible_move.texture = preload("res://assets/gridsquare/attack.png")
+					new_area_node.add_child(possible_move)
+					print("Rook can move to ", new_area_name)
+				else:
+					print("Failed to find node for new area: ", new_area_name)

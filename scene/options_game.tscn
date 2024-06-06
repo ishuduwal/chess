@@ -53,6 +53,11 @@ rotation = 0.416826
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_ygsiw")
 
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="Exit Game" to="." method="_on_exit_game_pressed"]
