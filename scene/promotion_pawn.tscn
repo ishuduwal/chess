@@ -73,18 +73,18 @@ debug_color = Color(0, 0.6, 0.701961, 0.419608)
 position = Vector2(67, 51)
 texture = ExtResource("2_1ksks")
 
-[node name="Knight" type="Area2D" parent="."]
+[node name="Zebra" type="Area2D" parent="."]
 z_index = 100
 position = Vector2(265, 0)
 script = ExtResource("1_k2ff3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Knight"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zebra"]
 z_index = 100
 position = Vector2(67, 52)
 shape = SubResource("RectangleShape2D_kq6ep")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[node name="Sprite2D" type="Sprite2D" parent="Knight"]
+[node name="Sprite2D" type="Sprite2D" parent="Zebra"]
 position = Vector2(67, 53)
 texture = ExtResource("4_vdeq2")
 
@@ -105,6 +105,6 @@ texture = ExtResource("3_u1h3b")
 
 [connection signal="input_event" from="Bishop" to="Bishop" method="_on_input_event"]
 [connection signal="input_event" from="Queen" to="Queen" method="_on_input_event"]
-[connection signal="input_event" from="Knight" to="Knight" method="_on_input_event"]
+[connection signal="input_event" from="Zebra" to="Zebra" method="_on_input_event"]
 [connection signal="input_event" from="Rook" to="." method="_on_area_2d_input_event"]
 [connection signal="input_event" from="Rook" to="Rook" method="_on_input_event"]
