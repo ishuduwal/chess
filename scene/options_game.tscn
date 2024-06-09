@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bdlnsj7jqyhwg" path="res://assets/White/Queen.png" id="3_ygsiw"]
 
 [node name="OptionsGame" type="Control"]
+z_index = 100
 z_as_relative = false
 layout_mode = 3
 anchors_preset = 0

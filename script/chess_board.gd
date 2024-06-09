@@ -1,7 +1,19 @@
 extends Area2D
 @onready var chess_board = $"../.."
+@onready var label = $"../../Label"
+@onready var label_2 = $"../../Label2"
+@onready var white_piece = $"../../AttackedPiece/WhitePiece"
+@onready var black_piece = $"../../AttackedPiece/BlackPiece"
 
+
+var removed_black_pieces = []
+var removed_white_pieces = []
 var global = Game
+
+func _ready():
+	global.turn = "white"
+	update_turn_label("White's Turn")
+
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -14,6 +26,12 @@ func _on_input_event(viewport, event, shape_idx):
 					if self.get_child_count() == 3:
 						var opponent_piece = self.get_child(2)
 						self.remove_child(opponent_piece)
+						if opponent_piece.name.substr(0, 5) == "White":
+							removed_white_pieces.append(opponent_piece)
+							print("Removed white piece:", opponent_piece.name)
+						else:
+							removed_black_pieces.append(opponent_piece)
+							print("Removed black piece:", opponent_piece.name)
 					
 					create_sprite(self, global.selected_node)
 					global.selected_node.remove_child(to_remove_piece)
@@ -30,13 +48,40 @@ func _on_input_event(viewport, event, shape_idx):
 						print(global.turn.capitalize(), "pawn to be promoted")
 					if global.turn == "white":
 						global.turn = "black"
+						update_turn_label("Black's Turn")
+
 					else:
 						global.turn = "white"
+						update_turn_label("White's Turn")
 				else:
 					remove_possible_move()
 					possible_move(self, self.get_child(2).name.substr(5, 1))
 			else:
 				remove_possible_move()
+func update_turn_label(text):
+	if global.turn == "white":
+		if label_2 != null:
+			label_2.text = text
+			label_2.visible = true  # Show label_2
+		if label != null:
+			label.visible = false  # Hide label
+	else:  # Black's turn
+		if label != null:
+			label.text = text
+			label.visible = true  # Show label
+		if label_2 != null:
+			label_2.visible = false  # Hide label_2
+
+func render_removed_pieces():
+	# Render removed white pieces
+	for removed_piece in removed_white_pieces:
+		removed_piece.position = Vector2(0, 0)  # Adjust position as needed
+		white_piece.add_child(removed_piece)  # Add removed white piece to WhitePiece node
+
+	# Render removed black pieces
+	for removed_piece in removed_black_pieces:
+		removed_piece.position = Vector2(0, 0)  # Adjust position as needed
+		black_piece.add_child(removed_piece)  # Add removed black piece to BlackPiece node
 
 
 func _on_mouse_entered():
@@ -55,6 +100,9 @@ func remove_possible_move():
 func create_sprite(area, piece):
 	var full_name = ""
 	var color = ""
+	print(area.name)
+	print(piece.name)
+	
 	match piece.get_child(2).name.substr(5, 1):
 		"P":
 			full_name = "Pawn"
@@ -65,6 +113,42 @@ func create_sprite(area, piece):
 		"K":
 			full_name = "King"
 			color = "White" if piece.get_child(2).name.substr(0, 5) == "White" else "Black"
+			var piece_name = piece.name
+			if int(str(piece_name))+2 == int(str(area.name)) && global.has_king_moved:
+				var change_node_sprite = get_node("../"+str(int(str(area.name))-1))
+				var new_sprite = Sprite2D.new()
+				var path = "res://assets/" + color + "/" + "Rook" + ".png"
+				var new_image = load(path)
+				new_sprite.texture = new_image
+				new_sprite.position = Vector2(0, 0)
+				new_sprite.name = global.selected_piece.substr(0,5)+"R"+"1"
+				change_node_sprite.add_child(new_sprite)
+				print("castle" + global.selected_piece)
+				var old_rook_square = get_node("../"+str(int(str(area.name))+1))
+				global.has_king_moved=false
+				print(old_rook_square.name)
+				
+				if old_rook_square and old_rook_square.get_child_count() == 3:
+					var old_rook = old_rook_square.get_child(2)
+					old_rook_square.remove_child(old_rook)
+			elif int(str(piece_name))-2 == int(str(area.name)) && global.has_king_moved:
+				var change_node_sprite = get_node("../"+str(int(str(area.name))+1))
+				var new_sprite = Sprite2D.new()
+				var path = "res://assets/" + color + "/" + "Rook" + ".png"
+				var new_image = load(path)
+				new_sprite.texture = new_image
+				new_sprite.position = Vector2(0, 0)
+				new_sprite.name = global.selected_piece.substr(0,5)+"R"+"1"
+				change_node_sprite.add_child(new_sprite)
+				print("castle" + global.selected_piece)
+				var old_rook_square = get_node("../"+str(int(str(area.name))-1))
+				global.has_king_moved=false
+				print(old_rook_square.name)
+				
+				if old_rook_square and old_rook_square.get_child_count() == 3:
+					var old_rook = old_rook_square.get_child(2)
+					old_rook_square.remove_child(old_rook)
+				
 		"B":
 			full_name = "Bishop"
 			color = "White" if piece.get_child(2).name.substr(0, 5) == "White" else "Black"
@@ -191,11 +275,19 @@ func possible_move(area, piece):
 		"K":
 			var area_name = str(area.name)
 			var area_index = int(area_name)
-			var king_moves = [
-				area_index - 11, area_index - 10, area_index - 9,
-				area_index - 1, area_index + 1,
-				area_index + 9, area_index + 10, area_index + 11
-			]
+			var king_moves = []
+			if global.has_king_moved:
+				king_moves = [
+					area_index - 11, area_index - 10, area_index - 9,
+					area_index - 1, area_index + 1,
+					area_index + 9, area_index + 10, area_index + 11
+				]
+			else:
+				king_moves = [
+					area_index - 11, area_index - 10, area_index - 9,
+					area_index - 1, area_index + 1,area_index - 2, area_index + 2,
+					area_index + 9, area_index + 10, area_index + 11
+				]
 			global.selected_possible_move = king_moves
 			for new_area_index in king_moves:
 				var new_area_name = str(new_area_index)

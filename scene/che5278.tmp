@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c05bup0hjw8md"]
+[gd_scene load_steps=21 format=3 uid="uid://c05bup0hjw8md"]
 
 [ext_resource type="Script" path="res://script/ChessPiece.gd" id="2_4ocro"]
 [ext_resource type="Texture2D" uid="uid://7k60up3oxxdf" path="res://assets/White/Rook.png" id="2_mebvh"]
@@ -36,12 +36,6 @@ func _on_input_event(viewport, event, shape_idx):
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7fojs"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l6lk8"]
-size = Vector2(158, 486)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mwa4j"]
-size = Vector2(129, 484)
 
 [node name="ChessBoard" type="Area2D"]
 position = Vector2(527, 246)
@@ -884,48 +878,6 @@ shape = SubResource("RectangleShape2D_7fojs")
 [node name="OptionsGame" parent="." instance=ExtResource("16_7cffl")]
 visible = false
 z_index = -1
-
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = 15.0
-offset_top = -287.0
-offset_right = 115.0
-offset_bottom = -264.0
-text = "Black's Move"
-
-[node name="Label2" type="Label" parent="."]
-visible = false
-offset_left = 15.0
-offset_top = 274.0
-offset_right = 119.0
-offset_bottom = 297.0
-text = "White's Move"
-
-[node name="AttackedPiece" type="Area2D" parent="."]
-position = Vector2(-247, 29)
-
-[node name="WhitePiece" type="Area2D" parent="AttackedPiece"]
-z_index = 100
-position = Vector2(-69, -1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackedPiece/WhitePiece"]
-position = Vector2(-2, 1)
-shape = SubResource("RectangleShape2D_l6lk8")
-
-[node name="Sprite2D" type="Sprite2D" parent="AttackedPiece/WhitePiece"]
-position = Vector2(3, 0)
-
-[node name="BlackPiece" type="Area2D" parent="AttackedPiece"]
-z_index = 100
-position = Vector2(700, -24)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackedPiece/BlackPiece"]
-shape = SubResource("RectangleShape2D_mwa4j")
-
-[node name="Sprite2D" type="Sprite2D" parent="AttackedPiece/BlackPiece"]
-position = Vector2(-5, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackedPiece"]
 
 [connection signal="input_event" from="ChessPiece/11" to="ChessPiece/11" method="_on_input_event"]
 [connection signal="mouse_entered" from="ChessPiece/11" to="ChessPiece" method="_on__mouse_entered"]
